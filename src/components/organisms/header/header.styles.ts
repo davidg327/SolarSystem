@@ -9,6 +9,12 @@ export const headerStyles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
   },
+  icon: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+  },
   text: {
     color: Colors.white,
     fontSize: 16,

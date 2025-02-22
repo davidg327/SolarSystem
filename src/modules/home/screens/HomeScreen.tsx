@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {SafeAreaView} from 'react-native';
+import {ActivityIndicator, SafeAreaView} from 'react-native';
 import {HomeTemplate} from '../../../components/template';
 import {usePlanetStore} from '../../../store';
 import {useNotification} from '../../../hooks';
@@ -10,7 +10,15 @@ import {Colors, IPlanet, styles} from '../../../theme';
 export const HomeScreen = () => {
     const {showNotification} = useNotification();
 
-    const {planets, search, getPlanets, getSearchPlanets} = usePlanetStore();
+    const {
+        planets,
+        search,
+        getPlanets,
+        getSearchPlanets,
+        getAllInfo
+    } = usePlanetStore();
+
+    const [load, setLoad] = useState(false);
 
     const getPlanetsApi = () => {
         axios.get('https://api.le-systeme-solaire.net/rest.php/bodies')
@@ -18,29 +26,57 @@ export const HomeScreen = () => {
                 if(response.data?.bodies.length > 0){
                     const onlyPlanets = response.data?.bodies.filter((planet: IPlanet) => planet.isPlanet);
                     getPlanets(onlyPlanets);
+                    getAllInfo(response.data?.bodies);
                 }
+                setLoad(false);
             })
             .catch(function (error) {
+                setLoad(false);
                 showNotification('No pudimos encontrar la ruta', Colors.error);
             });
     };
 
     const searchPlanet = () => {
-        console.log(imagesPlanets(planets[0].englishName).name.toLowerCase().trim(), '1');
-        console.log(search.toLowerCase().trim(), '2');
         const planet = planets.filter((planet: IPlanet) =>
             normalizeText(imagesPlanets(planet.englishName).name).includes(normalizeText(search)));
-        console.log(planet, 'planeta');
-        getSearchPlanets(planet);
+        if(planet.length > 0){
+            getSearchPlanets(planet);
+        }else {
+            showNotification('No se encontraron datos', Colors.error);
+        }
+    };
+
+    const orderAsc = () => {
+       const ascendingPlanets= [...planets].sort((a, b) =>
+                imagesPlanets(a.englishName).name.localeCompare(imagesPlanets(b.englishName).name)
+            );
+        getPlanets(ascendingPlanets);
+    };
+
+    const orderDesc = () => {
+        const ascendingPlanets= [...planets].sort((a, b) =>
+            imagesPlanets(b.englishName).name.localeCompare(imagesPlanets(a.englishName).name)
+        );
+        getPlanets(ascendingPlanets);
     };
 
     useEffect(() => {
+        setLoad(true);
         getPlanetsApi();
     }, []);
 
     return(
-        <SafeAreaView style={styles.container}>
-            <HomeTemplate search={searchPlanet} />
+        <SafeAreaView style={load ? styles.containerCenter : styles.container}>
+            {load && (
+                <ActivityIndicator color={Colors.primary} size={'large'} />
+            )}
+            {!load && (
+                <HomeTemplate
+                    search={searchPlanet}
+                    orderAsc={orderAsc}
+                    orderDesc={orderDesc}
+                />
+            )}
         </SafeAreaView>
     );
 };

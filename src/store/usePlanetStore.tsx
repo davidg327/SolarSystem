@@ -9,17 +9,20 @@ export interface IPlanetState {
     getPlanets: (planets: IPlanet[]) => void;
     getSearchPlanets: (planets: IPlanet[]) => void;
     cleanSearch: () => void;
+    allInfo: IPlanet[];
+    getAllInfo: (planets: IPlanet[]) => void;
 }
 
 export const usePlanetStore = create<IPlanetState>()((set, _get) => ({
     search: '',
+    planets: [],
+    searchPlanets: [],
+    allInfo: [],
     setSearch: (text: string) => {
         set({
             search: text,
         });
     },
-    planets: [],
-    searchPlanets: [],
     getPlanets: (planets: IPlanet[]) => {
         set({
             planets: planets,
@@ -34,6 +37,11 @@ export const usePlanetStore = create<IPlanetState>()((set, _get) => ({
         set({
             searchPlanets: [],
             search: '',
+        });
+    },
+    getAllInfo: (planets: IPlanet[]) => {
+        set({
+            allInfo: planets,
         });
     },
 }));
