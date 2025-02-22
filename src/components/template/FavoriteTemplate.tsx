@@ -1,7 +1,7 @@
 import React from 'react';
-import {View} from "react-native";
-import {Header} from "../organisms";
-import {favoriteTemplateStyles} from "./template.styles.ts";
+import {View} from 'react-native';
+import {Header} from '../organisms';
+import {favoriteTemplateStyles} from './template.styles.ts';
 
 interface IFavoriteTemplate {}
 
@@ -10,5 +10,5 @@ export const FavoriteTemplate = ({}: IFavoriteTemplate) => {
         <View style={favoriteTemplateStyles.container}>
             <Header name={'Favoritos'} />
         </View>
-    )
-}
+    );
+};

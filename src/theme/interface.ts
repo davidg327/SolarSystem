@@ -1,18 +1,9 @@
-export interface IData {
-  label: string;
-  value: string;
-}
-
-export interface IUser {
-  birthday: string;
-  lastName: string;
-  documentType: string;
-  documentNumber: string;
-  expedition: string;
-  updateSubscribeDate: null;
-  subscribeDate: null;
-  name: string;
+export interface IPlanet {
   id: string;
-  email: string;
-  direction: string;
+  englishName: string;
+  name: string;
+  isPlanet: boolean;
+  gravity: number;
+  density: number;
+  image: string;
 }

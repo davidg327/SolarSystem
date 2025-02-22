@@ -6,7 +6,7 @@ import {FavoriteScreen} from "../modules/favorite";
 
 export type TRootMainTabParams = {
     HomeScreen: undefined;
-    FavoriteScreen: undefined;
+    LoadScreen: undefined;
 };
 
 const Tab = createBottomTabNavigator<TRootMainTabParams>();

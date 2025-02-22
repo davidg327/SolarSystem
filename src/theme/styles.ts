@@ -6,6 +6,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
+  containerCenter: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   shadow: {
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },

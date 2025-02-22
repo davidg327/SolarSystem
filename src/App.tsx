@@ -6,13 +6,14 @@
  */
 
 import React from 'react';
-import Navigation from "./navigation";
-
-
+import Navigation from './navigation';
+import {ToastProviderComponent} from './components/molecules/toast';
 
 function App(): React.JSX.Element {
   return (
-    <Navigation />
+      <ToastProviderComponent>
+        <Navigation />
+      </ToastProviderComponent>
   );
 }
 

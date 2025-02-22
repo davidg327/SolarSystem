@@ -27,12 +27,12 @@ interface RouteIcon {
 const routeIcons: { [key: string]: RouteIcon } = {
   HomeScreen: {
     icon: (color: string) => (
-      <IconComponent name={'home'} color={color} />
+      <IconComponent name={'home'} color={color} size={25} />
     ),
     name: 'Home',
   },
   FavoriteScreen: {
-    icon: (color: string) => <IconComponent color={color} name={'heart'} />,
+    icon: (color: string) => <IconComponent color={color} name={'heart'} size={25} />,
     name: "Favoritos",
   },
 };
