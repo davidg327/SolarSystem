@@ -1,7 +1,6 @@
-import { Platform } from "react-native";
 
 export const Colors = {
-  primary: '#0005FC',
+  primary: '#1DA1F2',
   background: "#FFFFFF",
   white: "#FFFFFF",
   black: "#000000",

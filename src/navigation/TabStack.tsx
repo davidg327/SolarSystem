@@ -1,7 +1,8 @@
-import React from "react";
+import React, {JSX} from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {HomeScreen} from "../modules/home";
 import {CustomTabBar} from "../components/organisms";
+import {FavoriteScreen} from "../modules/favorite";
 
 export type TRootMainTabParams = {
     HomeScreen: undefined;
@@ -10,7 +11,7 @@ export type TRootMainTabParams = {
 
 const Tab = createBottomTabNavigator<TRootMainTabParams>();
 
-export function TabStack(): Element {
+export function TabStack(): JSX.Element {
     return (
         <Tab.Navigator
             initialRouteName="HomeScreen"
@@ -18,7 +19,7 @@ export function TabStack(): Element {
             screenOptions={{ headerShown: false }}
         >
             <Tab.Screen name="HomeScreen" component={HomeScreen} />
-            <Tab.Screen name="FavoriteScreen" component={HomeScreen} />
+            <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
         </Tab.Navigator>
     );
 }

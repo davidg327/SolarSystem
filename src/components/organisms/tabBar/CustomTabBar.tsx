@@ -29,7 +29,7 @@ const routeIcons: { [key: string]: RouteIcon } = {
     icon: (color: string) => (
       <IconComponent name={'home'} color={color} />
     ),
-    name: "Home",
+    name: 'Home',
   },
   FavoriteScreen: {
     icon: (color: string) => <IconComponent color={color} name={'heart'} />,
