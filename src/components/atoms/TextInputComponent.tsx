@@ -7,6 +7,7 @@ interface ITextInputComponent {
   styles: TextStyle;
   placeholder: string;
   placeholderTextColor: string;
+  onSubmitEditing?: () => void;
 }
 
 export const TextInputComponent = ({
@@ -15,6 +16,7 @@ export const TextInputComponent = ({
   styles,
   placeholder,
   placeholderTextColor,
+  onSubmitEditing,
 }: ITextInputComponent) => {
   return (
     <TextInput
@@ -23,6 +25,7 @@ export const TextInputComponent = ({
       style={styles}
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
+      onSubmitEditing={onSubmitEditing}
     />
   );
 };

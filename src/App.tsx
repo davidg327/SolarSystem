@@ -7,7 +7,7 @@
 
 import React from 'react';
 import Navigation from './navigation';
-import {ToastProviderComponent} from './components/molecules/toast';
+import {ToastProviderComponent} from './components/molecules';
 
 function App(): React.JSX.Element {
   return (

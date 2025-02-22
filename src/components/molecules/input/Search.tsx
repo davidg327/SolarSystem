@@ -20,6 +20,7 @@ export const Search = ({value, onChange, placeholder, search}: ISearch) => {
               styles={searchStyles.input}
               placeholder={placeholder}
               placeholderTextColor={Colors.black}
+              onSubmitEditing={search}
           />
           <IconComponent name={'search'} color={Colors.black} size={20} onPress={search}/>
       </View>

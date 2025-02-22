@@ -1,16 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import {FlatListComponent, TextComponent} from '../atoms';
-import {Search} from '../molecules';
+import {Button, Search} from '../molecules';
 import {Planet,Header} from '../organisms';
 import {usePlanetStore} from '../../store';
 import {imagesPlanets} from '../../functions';
-import {IPlanet} from '../../theme';
+import {Colors, IPlanet} from '../../theme';
 import {homeTemplateStyles} from './template.styles.ts';
 
+const {width} = Dimensions.get('window');
+
 interface IHomeTemplate {
-    value: string;
-    onChange: (text: string) => void;
     search: () => void;
 }
 
@@ -25,19 +25,24 @@ const Item = ({item}: IItem) => {
     );
 };
 
-export const HomeTemplate = ({value, onChange, search}: IHomeTemplate) => {
-    const {planets} = usePlanetStore();
+export const HomeTemplate = ({search}: IHomeTemplate) => {
+    const {planets, searchPlanets, search: value, cleanSearch, setSearch} = usePlanetStore();
     return (
         <View style={homeTemplateStyles.container}>
             <Header name={'Home'} />
             <Search
                 value={value}
-                onChange={onChange}
+                onChange={setSearch}
                 placeholder={'Buscar'}
                 search={search}
             />
+            {searchPlanets.length > 0 && (
+                <View style={homeTemplateStyles.containerCleanFilter}>
+                    <Button onPress={cleanSearch} text={'Limpiar filtro'} background={Colors.error} width={width * 0.3} />
+                </View>
+            )}
             <FlatListComponent
-                list={planets}
+                list={searchPlanets.length > 0 ? searchPlanets : planets}
                 renderItem={Item}
                 contentStyle={homeTemplateStyles.flatList}
                 empty={<TextComponent styles={homeTemplateStyles.textEmpty} text={'Sin planetas'} />}

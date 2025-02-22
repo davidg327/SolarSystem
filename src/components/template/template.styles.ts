@@ -5,6 +5,10 @@ export const homeTemplateStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  containerCleanFilter: {
+    alignSelf: 'flex-end',
+    marginRight: '5%',
+  },
   containerInfo: {
     marginTop: 20,
   },

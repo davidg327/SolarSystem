@@ -4,14 +4,13 @@ import {SafeAreaView} from 'react-native';
 import {HomeTemplate} from '../../../components/template';
 import {usePlanetStore} from '../../../store';
 import {useNotification} from '../../../hooks';
+import {imagesPlanets, normalizeText} from "../../../functions";
 import {Colors, IPlanet, styles} from '../../../theme';
 
 export const HomeScreen = () => {
     const {showNotification} = useNotification();
 
-    const {getPlanets} = usePlanetStore();
-
-    const [search, setSearch] = useState('');
+    const {planets, search, getPlanets, getSearchPlanets} = usePlanetStore();
 
     const getPlanetsApi = () => {
         axios.get('https://api.le-systeme-solaire.net/rest.php/bodies')
@@ -26,13 +25,22 @@ export const HomeScreen = () => {
             });
     };
 
+    const searchPlanet = () => {
+        console.log(imagesPlanets(planets[0].englishName).name.toLowerCase().trim(), '1');
+        console.log(search.toLowerCase().trim(), '2');
+        const planet = planets.filter((planet: IPlanet) =>
+            normalizeText(imagesPlanets(planet.englishName).name).includes(normalizeText(search)));
+        console.log(planet, 'planeta');
+        getSearchPlanets(planet);
+    };
+
     useEffect(() => {
         getPlanetsApi();
     }, []);
 
     return(
         <SafeAreaView style={styles.container}>
-            <HomeTemplate value={search} onChange={setSearch} search={() => {}} />
+            <HomeTemplate search={searchPlanet} />
         </SafeAreaView>
     );
 };
