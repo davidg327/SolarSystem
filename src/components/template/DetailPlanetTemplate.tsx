@@ -62,13 +62,16 @@ export const DetailPlanetTemplate = ({planet, handleFavorite, favoriteActive}: I
                     <View style={detailPlanetTemplateStyles.containerOnlyInfo}>
                         <TextComponent styles={detailPlanetTemplateStyles.title} text={'Lunas:'} />
                         <View style={detailPlanetTemplateStyles.containerMoons}>
-                            {planet.moons.map((moon: IMoons, index: number) => (
+                            {planet?.moons && planet.moons.length > 0 && planet.moons.map((moon: IMoons, index: number) => (
                                 <TextComponent
                                     key={index}
                                     styles={detailPlanetTemplateStyles.infoMoon}
                                     text={moon.moon}
                                 />
                             ))}
+                            {!planet?.moons && (
+                                <TextComponent styles={detailPlanetTemplateStyles.infoMoon} text={'Sin lunas'} />
+                            )}
                         </View>
                     </View>
                 </View>

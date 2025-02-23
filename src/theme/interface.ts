@@ -10,7 +10,7 @@ export interface IPlanet {
   mass: IMass;
   vol: IVol;
   sideralOrbit: number;
-  moons: IMoons[];
+  moons?: IMoons[];
 }
 
 interface IMass {
