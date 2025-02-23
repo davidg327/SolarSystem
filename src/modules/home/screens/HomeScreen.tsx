@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {ActivityIndicator, SafeAreaView} from 'react-native';
 import {HomeTemplate} from '../../../components/template';
-import {usePlanetStore} from '../../../store';
+import {useFavoriteStore, usePlanetStore} from '../../../store';
 import {useNotification} from '../../../hooks';
 import {imagesPlanets, normalizeText} from "../../../functions";
-import {Colors, IPlanet, styles} from '../../../theme';
+import {Colors, IPlanet, styles, TOKEN_FAVORITE} from '../../../theme';
+import {StorageAdapter} from "../../../helpers";
 
 export const HomeScreen = () => {
     const {showNotification} = useNotification();
@@ -15,8 +16,8 @@ export const HomeScreen = () => {
         search,
         getPlanets,
         getSearchPlanets,
-        getAllInfo
     } = usePlanetStore();
+    const {getFavorites} = useFavoriteStore();
 
     const [load, setLoad] = useState(false);
 
@@ -26,7 +27,6 @@ export const HomeScreen = () => {
                 if(response.data?.bodies.length > 0){
                     const onlyPlanets = response.data?.bodies.filter((planet: IPlanet) => planet.isPlanet);
                     getPlanets(onlyPlanets);
-                    getAllInfo(response.data?.bodies);
                 }
                 setLoad(false);
             })
@@ -60,9 +60,17 @@ export const HomeScreen = () => {
         getPlanets(ascendingPlanets);
     };
 
+    const favoriteStorage = async () => {
+        const favorites = await StorageAdapter.getItem(TOKEN_FAVORITE);
+        if(favorites !== null){
+            getFavorites(favorites);
+        }
+    };
+
     useEffect(() => {
         setLoad(true);
         getPlanetsApi();
+        favoriteStorage();
     }, []);
 
     return(

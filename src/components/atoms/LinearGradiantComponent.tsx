@@ -1,9 +1,9 @@
 import React from 'react';
 import {ViewStyle} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface ILinearGradientComponent {
-  colors: readonly [string, string, ...string[]];
+  colors: (string | number)[];
   containerStyle: ViewStyle;
   children: React.ReactNode;
 }
@@ -14,7 +14,7 @@ export const LinearGradientComponent = ({
   children,
 }: ILinearGradientComponent) => {
   return (
-    <LinearGradient colors={colors} style={containerStyle}>
+    <LinearGradient colors={colors}  style={containerStyle}>
       {children}
     </LinearGradient>
   );

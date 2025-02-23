@@ -39,6 +39,9 @@ export const favoriteTemplateStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  containerFavorite: {
+    marginTop: 10,
+  },
 });
 
 export const detailPlanetTemplateStyles = StyleSheet.create({

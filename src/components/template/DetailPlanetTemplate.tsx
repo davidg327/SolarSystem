@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
-import {IconComponent, ImageComponent, TextComponent} from "../atoms";
+import {useNavigation} from '@react-navigation/native';
+import {IconComponent, ImageComponent, TextComponent} from '../atoms';
 import {Header} from '../organisms';
-import {imagesPlanets} from "../../functions";
-import {Colors, IMoons, IPlanet} from "../../theme";
-import {detailPlanetTemplateStyles} from "./template.styles.ts";
+import {imagesPlanets} from '../../functions';
+import {Colors, IMoons, IPlanet} from '../../theme';
+import {detailPlanetTemplateStyles} from './template.styles.ts';
+import {useFavoriteStore} from "../../store";
 
 
 interface IDetailPlanetTemplate {
     planet: IPlanet;
+    handleFavorite: () => void;
+    favoriteActive: string;
 }
 
-export const DetailPlanetTemplate = ({planet}: IDetailPlanetTemplate) => {
-    const {name, image} = imagesPlanets(planet.englishName);
+export const DetailPlanetTemplate = ({planet, handleFavorite, favoriteActive}: IDetailPlanetTemplate) => {
     const navigation = useNavigation();
-    console.log(planet, 'planet');
+
+    const {name, image} = imagesPlanets(planet.englishName);
+
     return (
         <View style={detailPlanetTemplateStyles.container}>
             <Header name={name} goBack={() => navigation.goBack()} />
@@ -24,7 +28,12 @@ export const DetailPlanetTemplate = ({planet}: IDetailPlanetTemplate) => {
                 <View style={detailPlanetTemplateStyles.containerInfo}>
                     <View style={detailPlanetTemplateStyles.containerHeaderInfo}>
                         <TextComponent styles={detailPlanetTemplateStyles.title} text={'Información'} />
-                        <IconComponent name={'heart-o'} color={Colors.black} size={25} />
+                        <IconComponent
+                            name={favoriteActive === planet.id ? 'heart' : 'heart-o'}
+                            color={Colors.black}
+                            size={25}
+                            onPress={handleFavorite}
+                        />
                     </View>
                     <View style={detailPlanetTemplateStyles.containerText}>
                         <TextComponent styles={detailPlanetTemplateStyles.title} text={'Gravedad:'} />
